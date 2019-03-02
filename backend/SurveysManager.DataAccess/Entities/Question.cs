@@ -18,5 +18,5 @@ namespace SurveysManager.DataAccess.Entities
         {
             Answers = new List<Answer>();
         }
-}
+    }
 }
