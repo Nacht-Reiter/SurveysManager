@@ -3,6 +3,7 @@
 
 namespace SurveysManager.Common.DTOs
 {
+    //Plate Survey model for dashboard
     public class PlateSurveyDTO : BaseDTO
     {
         public string Title { get; set; }

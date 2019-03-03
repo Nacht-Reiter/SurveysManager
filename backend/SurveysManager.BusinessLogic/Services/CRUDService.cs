@@ -3,9 +3,7 @@ using SurveysManager.BusinessLogic.Interfaces;
 using SurveysManager.Common.DTOs;
 using SurveysManager.DataAccess.Entities;
 using SurveysManager.DataAccess.Repository;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SurveysManager.BusinessLogic.Services
@@ -62,16 +60,14 @@ namespace SurveysManager.BusinessLogic.Services
                 }
             }
             return null;
-
-
         }
 
         public virtual async Task<TDTO> GetAsync(int id)
         {
             if (uow != null)
             {
-                var items = await uow.Repository<TEntity>().GetAsync(id);
-                return mapper.Map<TDTO>(items);
+                var item = await uow.Repository<TEntity>().GetAsync(id);
+                return mapper.Map<TDTO>(item);
             }
             return null;
         }

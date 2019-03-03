@@ -9,7 +9,7 @@ namespace SurveysManager.DataAccess.Repository
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private DbContext dbContext;
-        private Dictionary<Type, object> repoStorage;
+        private Dictionary<Type, object> repoStorage; //Storage for generic repositories, needed to avoid multiple creation of same-type repo
 
         public UnitOfWork(DbContext db)
         {
