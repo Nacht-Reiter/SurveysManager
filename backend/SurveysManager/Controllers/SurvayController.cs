@@ -35,6 +35,14 @@ namespace SurveysManager.Controllers
             return survey == null ? NotFound() as IActionResult : Ok(survey);
         }
 
+        // GET: Surveyquestions/5
+        [HttpGet("surveyquestions/{id}")]
+        public async Task<IActionResult> GetAllQuestions(int id)
+        {
+            var questions = await service.GetAllQuestionsAsync(id);
+            return questions == null ? NotFound() as IActionResult : Ok(questions);
+        }
+
         // POST: Survey
         [HttpPost("[controller]")]
         public async Task<IActionResult> AddSurvey([FromBody] SurveyDTO survey)
@@ -42,7 +50,17 @@ namespace SurveysManager.Controllers
             if (!ModelState.IsValid)
                 return BadRequest() as IActionResult;
             var result = await service.AddAsync(survey);
-            return result != null ? Ok(result) as IActionResult : StatusCode(400);
+            return result != null ? Ok(result) as IActionResult : BadRequest() as IActionResult;
+        }
+
+        // POST: Survey/5
+        [HttpPost("[controller]/{id}")]
+        public async Task<IActionResult> AddOuestionToSurvey(int id, [FromBody] QuestionDTO question)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest() as IActionResult;
+            var result = await service.AddQuestionToSurveyAsync(id, question);
+            return result != null ? Ok(result) as IActionResult : BadRequest() as IActionResult;
         }
 
         // PUT: Survey/5
@@ -53,7 +71,7 @@ namespace SurveysManager.Controllers
                 return BadRequest() as IActionResult;
 
             var result = await service.UpdateAsync(id, survey);
-            return result == null ? Ok(result) as IActionResult : StatusCode(400);
+            return result == null ? Ok(result) as IActionResult : BadRequest() as IActionResult;
         }
 
         // DELETE: Survey/5
@@ -61,7 +79,15 @@ namespace SurveysManager.Controllers
         public async Task<IActionResult> DeleteSurvey(int id)
         {
             var info = await service.DeleteAsync(id);
-            return info ? Ok() : StatusCode(400);
+            return info ? Ok() : BadRequest() as IActionResult;
+        }
+
+        // DELETE: Survey/5
+        [HttpDelete("[controller]/{id}")]
+        public async Task<IActionResult> RemoveAllQuestions(int id)
+        {
+            var info = await service.RemoveAllQuestionsAsync(id);
+            return info ? Ok() : BadRequest() as IActionResult;
         }
     }
 }

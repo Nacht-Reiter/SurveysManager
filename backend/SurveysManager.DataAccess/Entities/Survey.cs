@@ -10,7 +10,7 @@ namespace SurveysManager.DataAccess.Entities
         public DateTime Date { get; set; }
         public int Views { get; set; }
 
-        public virtual IEnumerable<Question> Questions { get; set; }
+        public virtual IList<Question> Questions { get; set; }
 
         public Survey()
         {

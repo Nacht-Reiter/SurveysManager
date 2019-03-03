@@ -10,7 +10,7 @@ namespace SurveysManager.Common.DTOs
         public DateTime Date { get; set; }
         public int Views { get; set; }
 
-        public IEnumerable<QuestionDTO> Questions { get; set; }
+        public IList<QuestionDTO> Questions { get; set; }
 
         public SurveyDTO()
         {
