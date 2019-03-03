@@ -242,7 +242,7 @@ namespace SurveysManager.Tests.WebApiTests
         }
 
         [Fact]
-        public async void ChangeSurvey_ValidObjectPassed_ReturnedResponseHasCreatedItem()
+        public async void ChangeSurvey_ValidObjectPassed_ReturnedResponseHaUpdatedItem()
         {
             // Arrange
             var mock = new Mock<ISurveyService>();
