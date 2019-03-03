@@ -71,7 +71,7 @@ namespace SurveysManager.Controllers
                 return BadRequest() as IActionResult;
 
             var result = await service.UpdateAsync(id, survey);
-            return result == null ? Ok(result) as IActionResult : BadRequest() as IActionResult;
+            return result != null ? Ok(result) as IActionResult : BadRequest() as IActionResult;
         }
 
         // DELETE: Survey/5

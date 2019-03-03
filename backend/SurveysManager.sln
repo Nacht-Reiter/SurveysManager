@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveysManager", "SurveysManager\SurveysManager.csproj", "{3C69ED8A-605A-4F00-B165-7E657C08B850}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveysManager", "SurveysManager\SurveysManager.csproj", "{3C69ED8A-605A-4F00-B165-7E657C08B850}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveysManager.BusinessLogic", "SurveysManager.BusinessLogic\SurveysManager.BusinessLogic.csproj", "{7C1719CC-3769-467E-8ECA-5B38DD9CF1F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveysManager.BusinessLogic", "SurveysManager.BusinessLogic\SurveysManager.BusinessLogic.csproj", "{7C1719CC-3769-467E-8ECA-5B38DD9CF1F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveysManager.DataAccess", "SurveysManager.DataAccess\SurveysManager.DataAccess.csproj", "{664F2A70-7E14-43CA-81B9-287CDAE48AB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveysManager.DataAccess", "SurveysManager.DataAccess\SurveysManager.DataAccess.csproj", "{664F2A70-7E14-43CA-81B9-287CDAE48AB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveysManager.Common", "SurveysManager.Common\SurveysManager.Common.csproj", "{E3C84A21-C433-4CAF-AD57-106E466507A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveysManager.Common", "SurveysManager.Common\SurveysManager.Common.csproj", "{E3C84A21-C433-4CAF-AD57-106E466507A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveysManager.Tests", "SurveysManager.Tests\SurveysManager.Tests.csproj", "{1CBBE307-61E5-4153-82AD-D4A32854DC51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E3C84A21-C433-4CAF-AD57-106E466507A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3C84A21-C433-4CAF-AD57-106E466507A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3C84A21-C433-4CAF-AD57-106E466507A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CBBE307-61E5-4153-82AD-D4A32854DC51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CBBE307-61E5-4153-82AD-D4A32854DC51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CBBE307-61E5-4153-82AD-D4A32854DC51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CBBE307-61E5-4153-82AD-D4A32854DC51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
