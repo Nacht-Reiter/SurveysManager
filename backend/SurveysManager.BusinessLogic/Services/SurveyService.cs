@@ -6,6 +6,7 @@ using SurveysManager.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SurveysManager.BusinessLogic.Services
 {
@@ -50,6 +51,42 @@ namespace SurveysManager.BusinessLogic.Services
                 }
             }
             return null;
+        }
+
+        public async Task<SurveyDTO> AddQuestionToSurveyAsync(int id, QuestionDTO question)
+        {
+            var survey = await uow.Repository<Survey>().GetAsync(id);
+            if(survey != null && question != null)
+            {
+                survey.Questions.Add(mapper.Map<Question>(question));
+                await uow.Repository<Survey>().Update(survey);
+                await uow.SaveAsync();
+                return mapper.Map<SurveyDTO>(await uow.Repository<Survey>().GetAsync(id));
+            }
+            return null;
+        }
+
+        public async Task<IEnumerable<QuestionDTO>> GetAllQuestionsAsync(int id)
+        {
+            var survey = await uow.Repository<Survey>().GetAsync(id);
+            if (survey != null)
+            {
+                return mapper.Map<IEnumerable<QuestionDTO>>(survey.Questions);
+            }
+            return null;
+        }
+
+        public async Task<bool> RemoveAllQuestionsAsync(int id)
+        {
+            var survey = await uow.Repository<Survey>().GetAsync(id);
+            if (survey != null)
+            {
+                survey.Questions.Clear();
+                await uow.Repository<Survey>().Update(survey);
+                await uow.SaveAsync();
+                return true;
+            }
+            return false;
         }
     }
 }
