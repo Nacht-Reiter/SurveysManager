@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using SurveysManager.Common.DTOs;
 using SurveysManager.DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SurveysManager.Common
 {
