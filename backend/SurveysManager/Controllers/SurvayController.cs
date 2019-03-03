@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SurveysManager.BusinessLogic.Interfaces;
-using SurveysManager.BusinessLogic.Services;
 using SurveysManager.Common.DTOs;
 
 namespace SurveysManager.Controllers
