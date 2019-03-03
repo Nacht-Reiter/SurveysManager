@@ -19,8 +19,7 @@ namespace SurveysManager.Common
                 cfg.CreateMap<Survey, SurveyDTO>()
                     .ForMember(dto => dto.Questions, opt => opt.MapFrom(e => e.Questions));
 
-                cfg.CreateMap<Survey, SurveyDTO>()
-                    .ForMember(e => e.Questions, opt => opt.Ignore());
+                cfg.CreateMap<Survey, PlateSurveyDTO>();
 
                 cfg.CreateMap<QuestionDTO, Question>()
                     .ForMember(e => e.Answers, opt => opt.MapFrom(dto => dto.Answers))
