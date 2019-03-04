@@ -140,5 +140,66 @@ namespace SurveysManager.Tests.WebApiTests
             }
             return question;
         }
+
+        public async static Task<IEnumerable<QuestionDTO>> GetAllQuestionsOfSurvey(int id)
+        {
+            if(id == 1)
+            {
+                return new List<QuestionDTO>
+                {
+                    new QuestionDTO
+                    {
+                        Id = 1,
+                        Title = "Question 1",
+                        QuestionText = "text",
+                        Comment = "",
+                        Answers = new List<AnswerDTO>()
+                    },
+                    new QuestionDTO
+                    {
+                        Id = 2,
+                        Title = "Question 2",
+                        QuestionText = "text",
+                        Comment = "",
+                        Answers = new List<AnswerDTO>()
+                    },
+                    new QuestionDTO
+                    {
+                        Id = 3,
+                        Title = "Question 3",
+                        QuestionText = "text",
+                        Comment = "",
+                        Answers = new List<AnswerDTO>()
+                    }
+                };
+            }
+            return null;
+        }
+
+        public async static Task<SurveyDTO> AddQuestionToSurvey(int id, QuestionDTO question)
+        {
+            if(id == 1 && question != null)
+            {
+                return new SurveyDTO
+                {
+                    Id = 1,
+                    Creator = "John",
+                    Date = DateTime.Now,
+                    Views = 3,
+                    Title = "Survey 1",
+                    Questions = new List<QuestionDTO>
+                    {
+                        question
+                    }
+                };
+            }
+            return null;
+        }
+
+        public async static Task<bool> DeleteQuestionFromSurvey(int id)
+        {
+
+            return id == 1;
+        }
     }
 }

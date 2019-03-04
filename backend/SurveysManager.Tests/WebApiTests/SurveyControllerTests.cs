@@ -267,5 +267,156 @@ namespace SurveysManager.Tests.WebApiTests
             Assert.Equal(1, (okResult.Value as SurveyDTO)?.Id);
         }
 
+        [Fact]
+        public async void GetAllQuestions_UnknownId_ReturnsNotFoundResult()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.GetAllQuestionsAsync(It.IsAny<int>())).Returns((int id) => FakeServicesMethods.GetAllQuestionsOfSurvey(id));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var result = await controller.GetAllQuestions(0);
+            var notFoundResult = result as NotFoundResult;
+
+            // Assert
+            Assert.NotNull(notFoundResult);
+        }
+
+        [Fact]
+        public async void GetAllQuestions_ReturnsOk()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.GetAllQuestionsAsync(It.IsAny<int>())).Returns((int id) => FakeServicesMethods.GetAllQuestionsOfSurvey(id));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var result = await controller.GetAllQuestions(1);
+            var okResult = result as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(okResult);
+            Assert.Equal(200, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async void GetAllQuestions_ReturnsAllItems()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.GetAllQuestionsAsync(It.IsAny<int>())).Returns((int id) => FakeServicesMethods.GetAllQuestionsOfSurvey(id));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var result = await controller.GetAllQuestions(1);
+            var okResult = result as OkObjectResult;
+
+            // Assert
+            var items = Assert.IsAssignableFrom<IEnumerable<QuestionDTO>>(okResult.Value);
+            Assert.Equal(3, items.Count());
+        }
+
+        [Fact]
+        public async void AddOuestionToSurvey_InvalidObjectPassed_ReturnsBadRequest()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.AddQuestionToSurveyAsync(It.IsAny<int>(), It.IsAny<QuestionDTO>())).Returns((int id, QuestionDTO s) => FakeServicesMethods.AddQuestionToSurvey(id, s));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var result = await controller.AddOuestionToSurvey(1, null);
+            var badRequestResult = result as BadRequestResult;
+
+            // Assert
+            Assert.NotNull(badRequestResult);
+            Assert.Equal(400, badRequestResult.StatusCode);
+        }
+
+        [Fact]
+        public async void AddOuestionToSurvey_ValidObjectPassed_ReturnsOk()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.AddQuestionToSurveyAsync(It.IsAny<int>(), It.IsAny<QuestionDTO>())).Returns((int id, QuestionDTO s) => FakeServicesMethods.AddQuestionToSurvey(id, s));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var question = new QuestionDTO
+            {
+                Id = 1,
+                Title = "Question 1",
+                QuestionText = "text",
+                Comment = "",
+                Answers = new List<AnswerDTO>()
+            };
+            var result = await controller.AddOuestionToSurvey(1, question);
+            var okResult = result as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(okResult);
+            Assert.Equal(200, okResult.StatusCode);
+        }
+
+        [Fact]
+        public async void AddOuestionToSurvey_ValidObjectPassed_ReturnsAllItems()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.AddQuestionToSurveyAsync(It.IsAny<int>(), It.IsAny<QuestionDTO>())).Returns((int id, QuestionDTO s) => FakeServicesMethods.AddQuestionToSurvey(id, s));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var question = new QuestionDTO
+            {
+                Id = 1,
+                Title = "Question 1",
+                QuestionText = "text",
+                Comment = "",
+                Answers = new List<AnswerDTO>()
+            };
+            var result = await controller.AddOuestionToSurvey(1, question);
+            var okResult = result as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(okResult);
+            Assert.Equal(1, (okResult.Value as SurveyDTO)?.Questions.Count);
+        }
+
+        [Fact]
+        public async void RemoveAllQuestionsAsync_InvalidId_ReturnsBadRequest()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.RemoveAllQuestionsAsync(It.IsAny<int>())).Returns((int id) => FakeServicesMethods.DeleteQuestionFromSurvey(id));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var result = await controller.RemoveAllQuestions(0);
+            var badRequestResult = result as BadRequestResult;
+
+            // Assert
+            Assert.NotNull(badRequestResult);
+            Assert.Equal(400, badRequestResult.StatusCode);
+        }
+
+        [Fact]
+        public async void RemoveAllQuestions_ValidId_ReturnsOk()
+        {
+            // Arrange
+            var mock = new Mock<ISurveyService>();
+            mock.Setup(s => s.RemoveAllQuestionsAsync(It.IsAny<int>())).Returns((int id) => FakeServicesMethods.DeleteQuestionFromSurvey(id));
+            var controller = new SurveyController(mock.Object);
+
+            // Act
+            var result = await controller.RemoveAllQuestions(1);
+            var okResult = result as OkResult;
+
+            // Assert
+            Assert.NotNull(okResult);
+            Assert.Equal(200, okResult.StatusCode);
+        }
+
     }
 }
