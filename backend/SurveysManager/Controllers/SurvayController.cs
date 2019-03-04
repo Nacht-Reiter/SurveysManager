@@ -82,8 +82,8 @@ namespace SurveysManager.Controllers
             return info ? Ok() : BadRequest() as IActionResult;
         }
 
-        // DELETE: Survey/5
-        [HttpDelete("[controller]/{id}")]
+        // DELETE: Surveyquestions/5
+        [HttpDelete("surveyquestions/{id}")]
         public async Task<IActionResult> RemoveAllQuestions(int id)
         {
             var info = await service.RemoveAllQuestionsAsync(id);
