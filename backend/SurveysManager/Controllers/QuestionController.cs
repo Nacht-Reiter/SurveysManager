@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SurveysManager.BusinessLogic.Interfaces;
 using SurveysManager.Common.DTOs;
 
-namespace QuestionsManager.Controllers
+namespace SurveysManager.Controllers
 {
     [ApiController]
     public class QuestionController : ControllerBase
@@ -41,7 +41,7 @@ namespace QuestionsManager.Controllers
             if (!ModelState.IsValid)
                 return BadRequest() as IActionResult;
             var result = await service.AddAsync(question);
-            return result != null ? Ok(result) as IActionResult : StatusCode(400);
+            return result != null ? Ok(result) as IActionResult : BadRequest() as IActionResult;
         }
 
         // PUT: Question/5
@@ -52,7 +52,7 @@ namespace QuestionsManager.Controllers
                 return BadRequest() as IActionResult;
 
             var result = await service.UpdateAsync(id, question);
-            return result == null ? Ok(result) as IActionResult : StatusCode(400);
+            return result != null ? Ok(result) as IActionResult : BadRequest() as IActionResult;
         }
 
         // DELETE: Question/5
@@ -60,7 +60,7 @@ namespace QuestionsManager.Controllers
         public async Task<IActionResult> DeleteQuestion(int id)
         {
             var info = await service.DeleteAsync(id);
-            return info ? Ok() : StatusCode(400);
+            return info ? Ok() : BadRequest() as IActionResult;
         }
     }
 }
