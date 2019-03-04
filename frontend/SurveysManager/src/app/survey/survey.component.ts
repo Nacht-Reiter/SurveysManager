@@ -20,6 +20,11 @@ export class SurveyComponent implements OnInit {
   constructor(private survaysService: SurveysService, private activatedRoute: ActivatedRoute,  private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.survaysService.getById(params.surveyId).subscribe((data: Survey) => {
+          this.survey = data;
+      });
+    });
     this.refreshData();
   }
 
@@ -28,31 +33,35 @@ export class SurveyComponent implements OnInit {
   }
 
   onCreate(){
-    this.survaysService.addQuestion(this.survey.id, this.newQuestion).subscribe(() =>{
+    this.survaysService.addQuestion(this.survey.id, this.newQuestion).subscribe((data: Survey) =>{
+      this.survey = data;
       this.refreshData();
       this.modalService.dismissAll();
     })
   }
 
-  refreshData() {
-    this.activatedRoute.params.subscribe((params) => {
-      this.survaysService.getById(params.surveyId).subscribe((data: Survey) => {
-          this.survey = data;
-          this.newQuestion = {
-            id: 0,
-            title: "",
-            questionText: "",
-            comment: "",
-            survey: undefined,
-            answers: []
-          }
-          this.newAnswer = {
-            id: 0,
-            answerText: ""
-          }
-      });
-    });
+  onAddAnswer(){
+    this.newQuestion.answers.push(this.newAnswer);
+    this.newAnswer = {
+      id: 0,
+      answerText: ""
+    };
+  }
 
-}
+  refreshData() {
+    this.newQuestion = {
+      id: 0,
+      title: "",
+      questionText: "",
+      comment: "",
+      survey: undefined,
+      answers: []
+    };
+    this.newAnswer = {
+      id: 0,
+      answerText: ""
+    };
+
+  }
 
 }

@@ -60,6 +60,20 @@
               <div class="text-danger" *ngIf="comment.invalid && comment.touched">This field is required</div>
             </div>
           </div>
+          <div class="col-md">
+              <div *ngFor="let answer of newQuestion.answers">
+                <p>{{answer.answerText}}</p>
+              </div>
+          </div>
+          <div class="">
+            <div class="input-group col-md px-0">
+              <input class="form-control" id="answerText" name="answerText" #answerText="ngModel" [(ngModel)]="newAnswer.answerText" placeholder="Answer" required>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" [disabled]="answerText.invalid" (click)="onAddAnswer()" type="button">Add</button>
+              </div>
+            </div>
+            <div class="text-danger" *ngIf="answerText.invalid && answerText.touched">This field is required</div>
+          </div>
 
       </form>
     </div>
