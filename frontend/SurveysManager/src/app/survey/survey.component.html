@@ -27,10 +27,12 @@
       <p>{{question.questionText}}</p>
       <p *ngIf="question.comment.length !== 0"> {{question.comment}}</p>
     </div>
-    <div class="col-sm-6">
-      <div *ngFor="let answer of question.answers">
-        <p>{{answer.answerText}}</p>
-      </div>
+    <div class="col-sm-6 mt-5">
+        <ul>
+            <li *ngFor="let answer of question.answers">
+              {{answer.answerText}}
+            </li>
+        </ul>
     </div>
   </div>
   <hr>
@@ -61,9 +63,11 @@
             </div>
           </div>
           <div class="col-md">
-              <div *ngFor="let answer of newQuestion.answers">
-                <p>{{answer.answerText}}</p>
-              </div>
+            <ul>
+                <li *ngFor="let answer of newQuestion.answers">
+                  {{answer.answerText}}
+                </li>
+            </ul>
           </div>
           <div class="">
             <div class="input-group col-md px-0">
