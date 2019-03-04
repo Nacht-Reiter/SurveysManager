@@ -12,7 +12,7 @@ export class SurveysService {
 
   constructor(private api : ApiService) { }
 
-  getAll() : Observable<PlateSurvey> {
+  getAll() : Observable<Array<PlateSurvey>> {
     return this.api.sendRequest(RequestMethod.Get, `surveys`, undefined);
   }
 

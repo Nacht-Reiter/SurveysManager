@@ -10,7 +10,7 @@ export class QuestionsService {
 
   constructor(private api : ApiService) { }
 
-  getAll() : Observable<Question> {
+  getAll() : Observable<Array<Question>> {
     return this.api.sendRequest(RequestMethod.Get, `questions`, undefined);
   }
 
