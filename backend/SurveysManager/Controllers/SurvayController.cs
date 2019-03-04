@@ -20,7 +20,7 @@ namespace SurveysManager.Controllers
         }
 
         // GET: Surveys
-        [HttpGet("survays")]
+        [HttpGet("surveys")]
         public async Task<IActionResult> GetAllSurveys()
         {
             var survey = await service.GetAllPlateAsync();
