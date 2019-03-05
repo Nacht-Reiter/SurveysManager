@@ -6,7 +6,7 @@ Backend is 3-layers asp.net core solution. It consists of API project (controlle
 
 You should restore nu-get packages and run backend using iis express. DB migrations should be applied automatically, if not - run Update-Database command in Package manager console.
 
-Default api url is http://localhost:56942, you can change is in launchSettings.json
+Default api url is http://localhost:56942, you can change in in launchSettings.json
 
 Frontend is Angular 6 app.
 You should have installed npm and angular cli.
