@@ -1,4 +1,5 @@
-<div class="container display-1">{{survey.title}}</div>
+<div *ngIf="survey">
+  <div class="container display-1">{{survey.title}}</div>
 <hr>
 <div class="container">
   <div class="row">
@@ -19,23 +20,26 @@
   </div>
 </div>
 <hr>
+</div>
 
-<div class="container" *ngFor="let question of survey.questions">
-  <div class="row">
-    <div class="col-sm-6">
-      <h5>{{question.title}}</h5>
-      <p>{{question.questionText}}</p>
-      <p *ngIf="question.comment.length !== 0"> {{question.comment}}</p>
+<div *ngIf="survey && survey.questions.length !== 0">
+  <div class="container" *ngFor="let question of survey.questions">
+    <div class="row">
+      <div class="col-sm-6">
+        <h5>{{question.title}}</h5>
+        <p>{{question.questionText}}</p>
+        <p *ngIf="question.comment.length !== 0"> {{question.comment}}</p>
+      </div>
+      <div class="col-sm-6 mt-5">
+          <ul>
+              <li *ngFor="let answer of question.answers">
+                {{answer.answerText}}
+              </li>
+          </ul>
+      </div>
     </div>
-    <div class="col-sm-6 mt-5">
-        <ul>
-            <li *ngFor="let answer of question.answers">
-              {{answer.answerText}}
-            </li>
-        </ul>
-    </div>
+    <hr>
   </div>
-  <hr>
 </div>
 
 <ng-template #content let-modal>
@@ -76,12 +80,12 @@
                 <button class="btn btn-outline-secondary" [disabled]="answerText.invalid" (click)="onAddAnswer()" type="button">Add</button>
               </div>
             </div>
-            <div class="text-danger" *ngIf="answerText.invalid && answerText.touched">This field is required</div>
+            <div class="text-danger" *ngIf="answerText.invalid && answerText.touched && newQuestion.answers.length === 0">This field is required</div>
           </div>
 
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" [disabled]="!questionForm.valid" (click)="onCreate()">Save</button>
+      <button type="button" class="btn btn-outline-dark" [disabled]="title.invalid || questionText.invalid || newQuestion.answers.length === 0" (click)="onCreate()">Save</button>
     </div>
   </ng-template>
