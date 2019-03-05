@@ -1,0 +1,64 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Surveys Manager</h1>
+  </div>
+</div>
+
+<div class="container">
+    <button type="button " class="btn btn-info btn-lg" (click)="onAdd(content)">Add survey</button>
+    <hr>
+</div>
+
+<div class="container">
+  
+
+  <div *ngIf="surveys && surveys.length === 0">
+    <h3 class="display-2">No surveys</h3>
+  </div>
+  <div *ngIf="surveys && surveys.length !== 0" class="container">
+    <div *ngFor="let survey of surveys">
+      <div  class="row">
+        <div class="col-sm-3">
+          <h4>{{survey.title}}</h4>
+          <h6>{{survey.creator}}</h6>
+        </div>
+        <div class="col-sm-7">
+          <p>{{survey.date | date: 'longDate'}}</p>
+        </div>
+        <div class="col-sm-1">
+          <p class="text-md-center text-sm-center"><i class="far fa-eye"></i>  {{survey.views}}</p>
+        </div>
+        <div class="col-sm-1 ">
+          <a class="text-info" routerLinkActive="active" [routerLink]="['/survey', survey.id]"><i class="fas fa-angle-right fa-2x "></i></a>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create survey</h4>
+    </div>
+    <div class="modal-body">
+      <form #surveyForm = "ngForm">
+          <div class="form-row">
+            <div class="form-group col-md">
+              <input class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="newSurvey.title" placeholder="Title" required>
+              <div class="text-danger" *ngIf="title.invalid && title.touched">This field is required</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md">
+              <input class="form-control" id="creator" name="creator" #creator="ngModel" [(ngModel)]="newSurvey.creator" placeholder="Creator" required>
+              <div class="text-danger" *ngIf="creator.invalid && creator.touched">This field is required</div>
+            </div>
+          </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" [disabled]="!surveyForm.valid" (click)="onCreate()">Save</button>
+    </div>
+  </ng-template>

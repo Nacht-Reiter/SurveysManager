@@ -1,0 +1,91 @@
+<div *ngIf="survey">
+  <div class="container display-1">{{survey.title}}</div>
+<hr>
+<div class="container">
+  <div class="row">
+      <div class="col-sm-6">
+        <h3 class="text-left">{{survey.creator}}</h3>
+      </div>
+      <div class="col-sm-6">
+        <p class="text-right">{{survey.date | date: 'longDate'}}</p>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-6">
+        <button type="button " class="btn btn-info btn-lg" (click)="onAdd(content)">Add question</button>
+      </div>
+      <div class="col-sm-6">
+        <p class="text-right"><i class="far fa-eye"></i>  {{survey.views}}</p>
+      </div>
+  </div>
+</div>
+<hr>
+</div>
+
+<div *ngIf="survey && survey.questions.length !== 0">
+  <div class="container" *ngFor="let question of survey.questions">
+    <div class="row">
+      <div class="col-sm-6">
+        <h5>{{question.title}}</h5>
+        <p>{{question.questionText}}</p>
+        <p *ngIf="question.comment.length !== 0"> {{question.comment}}</p>
+      </div>
+      <div class="col-sm-6 mt-5">
+          <ul>
+              <li *ngFor="let answer of question.answers">
+                {{answer.answerText}}
+              </li>
+          </ul>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add question</h4>
+    </div>
+    <div class="modal-body">
+      <form #questionForm = "ngForm">
+          <div class="form-row">
+            <div class="form-group col-md">
+              <input class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="newQuestion.title" placeholder="Title" required>
+              <div class="text-danger" *ngIf="title.invalid && title.touched">This field is required</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md">
+              <input class="form-control" id="questionText" name="questionText" #questionText="ngModel" [(ngModel)]="newQuestion.questionText" placeholder="Question" required>
+              <div class="text-danger" *ngIf="questionText.invalid && questionText.touched">This field is required</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md">
+              <input class="form-control" id="comment" name="comment" #comment="ngModel" [(ngModel)]="newQuestion.comment" placeholder="Comment">
+              <div class="text-danger" *ngIf="comment.invalid && comment.touched">This field is required</div>
+            </div>
+          </div>
+          <div class="col-md">
+            <ul>
+                <li *ngFor="let answer of newQuestion.answers">
+                  {{answer.answerText}}
+                </li>
+            </ul>
+          </div>
+          <div class="">
+            <div class="input-group col-md px-0">
+              <input class="form-control" id="answerText" name="answerText" #answerText="ngModel" [(ngModel)]="newAnswer.answerText" placeholder="Answer" required>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" [disabled]="answerText.invalid" (click)="onAddAnswer()" type="button">Add</button>
+              </div>
+            </div>
+            <div class="text-danger" *ngIf="answerText.invalid && answerText.touched && newQuestion.answers.length === 0">This field is required</div>
+          </div>
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" [disabled]="title.invalid || questionText.invalid || newQuestion.answers.length === 0" (click)="onCreate()">Save</button>
+    </div>
+  </ng-template>
